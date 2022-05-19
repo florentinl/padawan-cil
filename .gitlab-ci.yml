@@ -1,0 +1,10 @@
+build:
+  image: golang
+  script:
+    - go get
+    - go build .
+  artifacts:
+    untracked: false
+    expire_in: 30 days
+    paths:
+      - "padawan"
