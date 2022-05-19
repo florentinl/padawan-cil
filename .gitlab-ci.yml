@@ -8,13 +8,13 @@ build:
   script:
     - go get
     - go build .
-    - echo $CI_JOB_ID > .build_id
   artifacts:
     untracked: false
-    expire_in: 30 days
+    expire_in: 10 minutes
     paths:
       - "padawan"
-      - ".build_id"
+  only:
+    - main
 
 release:
   stage: release
@@ -31,6 +31,11 @@ release:
     assets:
       links:
         - name: "padawan"
-          url: "$CI_API_V4_URL/$CI_PROJECT_PATH/-/jobs/$BUILD_JOB_ID/artifacts/files/padawan"
+          url: "$CI_API_V4_URL/$CI_PROJECT_PATH/-/jobs/$CI_JOB_ID/artifacts/files/padawan"
+  artifacts:
+    untracked: false
+    expire_in: 30 days
+    paths:
+      - "padawan"
   only:
     - main
