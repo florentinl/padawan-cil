@@ -1,10 +1,30 @@
+stages:
+  - build
+  - release
+
 build:
   image: golang
   script:
     - go get
     - go build .
+    - echo $CI_JOB_ID > .build_id
   artifacts:
     untracked: false
     expire_in: 30 days
     paths:
       - "padawan"
+
+release:
+  dependencies:
+    - build
+  script:
+    - BUILD_JOB_ID=$(cat .build_id)
+    - echo "Build release"
+  release:
+    tag_name: $CI_COMMIT_BRANCH-$CI_COMMIT_SHA
+    description: "New release of padawan client"
+    name: "Padawan cli version $CI_COMMIT_BRANCH-$CI_COMMIT_SHA"
+    assets:
+      links:
+        - name: "padawan"
+          url: "$CI_API_V4_URL/$CI_PROJECT_PATH/-/jobs/$BUILD_JOB_ID/artifacts/files/padawan"
