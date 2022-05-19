@@ -32,3 +32,5 @@ release:
       links:
         - name: "padawan"
           url: "$CI_API_V4_URL/$CI_PROJECT_PATH/-/jobs/$BUILD_JOB_ID/artifacts/files/padawan"
+  only:
+    - main
