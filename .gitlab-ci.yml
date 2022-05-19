@@ -14,6 +14,7 @@ build:
     expire_in: 30 days
     paths:
       - "padawan"
+      - ".build_id"
 
 release:
   stage: release
