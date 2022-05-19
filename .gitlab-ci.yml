@@ -22,7 +22,7 @@ release:
   dependencies:
     - build
   script:
-    - BUILD_JOB_ID=$(cat .build_id)
+    - export BUILD_JOB_ID=$(cat .build_id)
     - echo "Build release"
   release:
     tag_name: $CI_COMMIT_BRANCH-$CI_COMMIT_SHA
